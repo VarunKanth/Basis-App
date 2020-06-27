@@ -100,49 +100,6 @@ class ViewController: UIViewController {
         resetCardViewToOriginalPosition()
     }
     
-    
-    func panGestureRecognized(gestureRecognizer: UIPanGestureRecognizer) {
-//          xDistanceFromCenter = gestureRecognizer.translationInView(self).x
-//          yDistanceFromCenter = gestureRecognizer.translationInView(self).y
-//
-//          let touchLocation = gestureRecognizer.locationInView(self)
-//          switch gestureRecognizer.state {
-//          case .Began:
-//              originalLocation = center
-//
-//              animationDirection = touchLocation.y >= frame.size.height / 2 ? -1.0 : 1.0
-//              layer.shouldRasterize = true
-//              break
-//
-//          case .Changed:
-//
-//              let rotationStrength = min(xDistanceFromCenter! / self.frame.size.width, rotationMax)
-//              let rotationAngle = animationDirection! * defaultRotationAngle * rotationStrength
-//              let scaleStrength = 1 - ((1 - scaleMin) * fabs(rotationStrength))
-//              let scale = max(scaleStrength, scaleMin)
-//
-//              layer.rasterizationScale = scale * UIScreen.mainScreen().scale
-//
-//              let transform = CGAffineTransformMakeRotation(rotationAngle)
-//              let scaleTransform = CGAffineTransformScale(transform, scale, scale)
-//
-//              self.transform = scaleTransform
-//              center = CGPoint(x: originalLocation!.x + xDistanceFromCenter!, y: originalLocation!.y + yDistanceFromCenter!)
-//
-//              updateOverlayWithFinishPercent(xDistanceFromCenter! / frame.size.width)
-//              //100% - for proportion
-//              delegate?.cardDraggedWithFinishPercent(self, percent: min(fabs(xDistanceFromCenter! * 100 / frame.size.width), 100))
-//
-//              break
-//          case .Ended:
-//              swipeMadeAction()
-//
-//              layer.shouldRasterize = false
-//          default :
-//              break
-//          }
-      }
-
     func getCardDataFromURL(){
         if let url = URL(string: "https://git.io/fjaqJ") {
         
