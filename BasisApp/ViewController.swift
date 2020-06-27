@@ -56,7 +56,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         getCardDataFromURL()
         divisionParam = (view.frame.size.width/2)/0.61
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func moveCard(_ sender: UIPanGestureRecognizer) {
