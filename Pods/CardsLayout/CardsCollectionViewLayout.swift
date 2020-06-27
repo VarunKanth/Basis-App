@@ -53,7 +53,8 @@ open class CardsCollectionViewLayout: UICollectionViewLayout {
     let minVisibleIndex = max(Int(collectionView.contentOffset.x) / Int(collectionView.bounds.width), 0)
     let maxVisibleIndex = min(minVisibleIndex + maximumVisibleItems, totalItemsCount)
 
-    let contentCenterX = collectionView.contentOffset.x + (collectionView.bounds.width / 2.0)
+    let contentCenterX = (collectionView.bounds.width / 2.0)
+//    collectionView.contentOffset.x + (collectionView.bounds.width / 2.0)
 
     let deltaOffset = Int(collectionView.contentOffset.x) % Int(collectionView.bounds.width)
 
@@ -128,10 +129,10 @@ fileprivate extension CardsCollectionViewLayout {
                                           percentageOffset: percentageDeltaOffset)
     switch visibleIndex {
     case 0:
-      attributes.center.x -= deltaOffset
+//      attributes.center.x -= deltaOffset
       break
     case 1..<maximumVisibleItems:
-      attributes.center.x -= spacing * percentageDeltaOffset
+//      attributes.center.x -= spacing * percentageDeltaOffset
       attributes.center.y -= spacing * percentageDeltaOffset
 
 

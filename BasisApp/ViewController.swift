@@ -29,7 +29,7 @@
 
 
 import UIKit
-import CardsLayout
+
 
 //Model for the api response
 struct BAResult: Codable{
@@ -62,15 +62,19 @@ class ViewController: UIViewController {
     func setupCollectionView(){
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
-        cardCollectionView.collectionViewLayout = CardsCollectionViewLayout()
-        cardCollectionView.collectionViewLayout.layoutAttributesForItem(at: <#T##IndexPath#>)
+        let layout = CardsCollectionViewLayout()
+        cardCollectionView.collectionViewLayout = layout
         cardCollectionView.isPagingEnabled = true
         cardCollectionView.showsHorizontalScrollIndicator = false
     }
     
     @IBAction func resetCard(_ sender: UIButton) {
         cardCollectionView.reloadData()
+        cardCollectionView.layoutIfNeeded()
+        CardsCollectionViewLayout().prepare()
     }
+    
+    
     
     func getCardDataFromURL(){
         if let url = URL(string: "https://git.io/fjaqJ") {
@@ -87,7 +91,6 @@ class ViewController: UIViewController {
                     resultString?.removeFirst()
                     let data = Data(resultString!.utf8)
                     if let baResultDecoded = try? decoder.decode(BAResult.self, from: data){
-                        print(baResultDecoded)
                         if let list = baResultDecoded.data{
                             self.cardDataList = list
                             DispatchQueue.main.async {
