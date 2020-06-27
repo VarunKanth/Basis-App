@@ -29,6 +29,7 @@
 
 
 import UIKit
+import CardsLayout
 
 //Model for the api response
 struct BAResult: Codable{
@@ -42,9 +43,9 @@ struct BACardData: Codable{
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var card: UIView!
-
     @IBOutlet weak var cardProgressBar: UIProgressView!
+    
+    @IBOutlet weak var cardCollectionView: UICollectionView!
     
     @IBOutlet weak var cardNumberLabel: UILabel!
     
@@ -54,49 +55,21 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCollectionView()
         getCardDataFromURL()
-        divisionParam = (view.frame.size.width/2)/0.61
-    }
-
-    @IBAction func moveCard(_ sender: UIPanGestureRecognizer) {
-        let cardView = sender.view!
-        let translationPoint = sender.translation(in: view)
-        cardView.center = CGPoint(x: view.center.x+translationPoint.x, y: view.center.y+translationPoint.y)
-        
-        let distanceMoved = cardView.center.x - view.center.x
-        
-        //Tilt your card
-        cardView.transform = CGAffineTransform(rotationAngle: distanceMoved/divisionParam)
-        
-        if sender.state == UIGestureRecognizer.State.ended {
-            if cardView.center.x < 20 { // Moved to left
-                UIView.animate(withDuration: 0.3, animations: {
-                    cardView.center = CGPoint(x: cardView.center.x-200, y: cardView.center.y)
-                })
-                return
-            }
-            else if (cardView.center.x > (view.frame.size.width-20)) { // Moved to right
-                UIView.animate(withDuration: 0.3, animations: {
-                    cardView.center = CGPoint(x: cardView.center.x+200, y: cardView.center.y)
-                })
-                return
-            }
-            
-            UIView.animate(withDuration: 0.2, animations: {
-                self.resetCardViewToOriginalPosition()
-            })
-        }
     }
     
-    func resetCardViewToOriginalPosition(){
-        UIView.animate(withDuration: 0.3) {
-            self.card.center = self.view.center
-            self.card.transform = .identity
-        }
+    func setupCollectionView(){
+        cardCollectionView.delegate = self
+        cardCollectionView.dataSource = self
+        cardCollectionView.collectionViewLayout = CardsCollectionViewLayout()
+        cardCollectionView.collectionViewLayout.layoutAttributesForItem(at: <#T##IndexPath#>)
+        cardCollectionView.isPagingEnabled = true
+        cardCollectionView.showsHorizontalScrollIndicator = false
     }
     
     @IBAction func resetCard(_ sender: UIButton) {
-        resetCardViewToOriginalPosition()
+        cardCollectionView.reloadData()
     }
     
     func getCardDataFromURL(){
@@ -117,6 +90,9 @@ class ViewController: UIViewController {
                         print(baResultDecoded)
                         if let list = baResultDecoded.data{
                             self.cardDataList = list
+                            DispatchQueue.main.async {
+                                self.cardCollectionView.reloadData()
+                            }
                         }
                     }
                 }
@@ -128,6 +104,26 @@ class ViewController: UIViewController {
     }
     
 
+}
+
+extension ViewController : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cardDataList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCell
+        cell.layer.cornerRadius = 7.0
+        cell.cardText.text = cardDataList[indexPath.item].text ?? ""
+        cell.backgroundColor = UIColor(displayP3Red: 77/255, green: 194/255, blue: 135/255, alpha: 1)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 300, height: 300)
+    }
+    
 }
 
 

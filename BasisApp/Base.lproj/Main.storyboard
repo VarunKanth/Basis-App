@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,17 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Qs-cx-6mO">
-                                <rect key="frame" x="32" y="278" width="350" height="350"/>
-                                <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="4Qs-cx-6mO" secondAttribute="height" id="9ew-bK-KFu"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="ibt-LF-uHs" appends="YES" id="s91-9x-geN"/>
-                                </connections>
-                            </view>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="FVI-gY-raI">
                                 <rect key="frame" x="16" y="112" width="382" height="2"/>
                                 <color key="progressTintColor" red="0.30196078431372547" green="0.76078431372549016" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
@@ -57,7 +47,7 @@
                                 <rect key="frame" x="175" y="768" width="64" height="30"/>
                                 <color key="backgroundColor" red="0.30196078430000001" green="0.76078431369999999" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="64" id="4cr-wt-EQ4"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="4cr-wt-EQ4"/>
                                 </constraints>
                                 <state key="normal" title="RESET">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -66,38 +56,72 @@
                                     <action selector="resetCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jeb-dz-cwW"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8lT-r8-iVx">
+                                <rect key="frame" x="7" y="253" width="400" height="400"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="58J-Im-CUY"/>
+                                    <constraint firstAttribute="width" constant="400" id="a3z-4m-JtB"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="O59-ub-HFe">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CardCell" id="YOU-uC-f6p" customClass="CardCell" customModule="BasisApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="74" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mWE-B2-E2B">
+                                            <rect key="frame" x="0.0" y="0.0" width="74" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npu-kw-Csu">
+                                                    <rect key="frame" x="16" y="54" width="42" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="npu-kw-Csu" firstAttribute="centerY" secondItem="mWE-B2-E2B" secondAttribute="centerY" id="0eM-1y-Hbg"/>
+                                                <constraint firstItem="npu-kw-Csu" firstAttribute="leading" secondItem="mWE-B2-E2B" secondAttribute="leading" constant="16" id="FdJ-tV-jtz"/>
+                                                <constraint firstItem="npu-kw-Csu" firstAttribute="centerX" secondItem="mWE-B2-E2B" secondAttribute="centerX" id="KCp-06-N9s"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="cardText" destination="npu-kw-Csu" id="vzT-2h-6Dd"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="NKY-OE-0wI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="GjL-jJ-K9c"/>
                             <constraint firstItem="NKY-OE-0wI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="96" id="I2Y-BV-bPM"/>
                             <constraint firstItem="NKY-OE-0wI" firstAttribute="top" secondItem="aqr-6l-RfL" secondAttribute="bottom" constant="64" id="L37-mE-dlT"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="4Qs-cx-6mO" secondAttribute="leading" constant="-32" id="LwZ-dk-yVi"/>
+                            <constraint firstItem="8lT-r8-iVx" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="PWA-r7-Ym3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7pz-ay-Lsd" secondAttribute="bottom" constant="64" id="a10-Kn-vjv"/>
                             <constraint firstItem="aqr-6l-RfL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="alc-eK-PHh"/>
                             <constraint firstItem="7pz-ay-Lsd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="dwL-rM-z2z"/>
-                            <constraint firstItem="4Qs-cx-6mO" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="eqn-LH-YKh"/>
                             <constraint firstItem="aqr-6l-RfL" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="fyZ-F5-74H"/>
                             <constraint firstItem="FVI-gY-raI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="pmt-Ja-d0T"/>
-                            <constraint firstItem="4Qs-cx-6mO" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="qCx-Wv-SPg"/>
                             <constraint firstItem="FVI-gY-raI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="qJr-PB-6oI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="aqr-6l-RfL" secondAttribute="top" id="qir-ut-Yq7"/>
+                            <constraint firstItem="8lT-r8-iVx" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="rT1-HX-8cZ"/>
                             <constraint firstItem="FVI-gY-raI" firstAttribute="top" secondItem="aqr-6l-RfL" secondAttribute="bottom" constant="4" id="yY8-5N-PEV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="card" destination="4Qs-cx-6mO" id="j37-nZ-iZB"/>
+                        <outlet property="cardCollectionView" destination="8lT-r8-iVx" id="9ts-oA-5na"/>
                         <outlet property="cardNumberLabel" destination="NKY-OE-0wI" id="oOH-uY-cFp"/>
                         <outlet property="cardProgressBar" destination="FVI-gY-raI" id="SWy-En-uHE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="ibt-LF-uHs">
-                    <connections>
-                        <action selector="moveCard:" destination="BYZ-38-t0r" id="XbH-du-6dd"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="129.91071428571428"/>
         </scene>
