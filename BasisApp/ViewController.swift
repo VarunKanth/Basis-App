@@ -8,7 +8,6 @@
 
 
 import UIKit
-import CardsLayout
 
 //Model for the api response
 struct BAResult: Codable{
@@ -34,25 +33,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCollectionView()
         getCardDataFromURL()
     }
-    
-    func setupCollectionView(){
-        cardCollectionView.delegate = self
-        cardCollectionView.dataSource = self
-        let layout = CardsCollectionViewLayout()
-        cardCollectionView.collectionViewLayout = layout
-        cardCollectionView.isPagingEnabled = true
-        cardCollectionView.showsHorizontalScrollIndicator = false
-    }
-    
-    @IBAction func resetCard(_ sender: UIButton) {
-        cardCollectionView.reloadData()
-        cardCollectionView.layoutIfNeeded()
-        CardsCollectionViewLayout().prepare()
-    }
-    
     
     
     func getCardDataFromURL(){
@@ -88,20 +70,6 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController : UICollectionViewDelegate,UICollectionViewDataSource{
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cardDataList.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCell
-        cell.layer.cornerRadius = 7.0
-        cell.cardText.text = cardDataList[indexPath.item].text ?? ""
-        cell.backgroundColor = UIColor(displayP3Red: 77/255, green: 194/255, blue: 135/255, alpha: 1)
-        return cell
-    }
-    
-}
+
 
 

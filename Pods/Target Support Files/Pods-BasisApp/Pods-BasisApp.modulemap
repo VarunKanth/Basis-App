@@ -1,6 +1,0 @@
-framework module Pods_BasisApp {
-  umbrella header "Pods-BasisApp-umbrella.h"
-
-  export *
-  module * { export * }
-}
